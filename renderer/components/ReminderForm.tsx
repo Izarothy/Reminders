@@ -3,13 +3,20 @@ import { useDispatch } from 'react-redux';
 import { setReminderData } from '../redux/slices/reminderDataSlice';
 import { useForm } from 'react-hook-form';
 import { ReminderDataT } from 'renderer/lib/types';
+import electron from 'electron';
+const ipcRenderer = electron.ipcRenderer || false;
 
 const ReminderForm = () => {
   const dispatch = useDispatch();
-  const { register, reset, handleSubmit } = useForm();
+  const { register, reset, handleSubmit } = useForm<ReminderDataT>();
 
   const setReminder = (data: ReminderDataT) => {
+    // React hook form parses these as string
+    data.interval = Number(data.interval);
+    data.times = Number(data.times);
+
     dispatch(setReminderData(data));
+    ipcRenderer && ipcRenderer.send('reminder-data', data);
 
     reset();
   };

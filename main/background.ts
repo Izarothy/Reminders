@@ -1,7 +1,9 @@
-import { app } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import serve from 'electron-serve';
+import { ReminderDataT } from 'renderer/lib/types';
 import { createWindow } from './helpers';
 import addTrayIcon from './helpers/add-tray-icon';
+import schedule from 'node-schedule';
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
 
@@ -20,7 +22,6 @@ if (isProd) {
   });
 
   addTrayIcon(mainWindow);
-
   if (isProd) {
     await mainWindow.loadURL('app://./home.html');
   } else {
@@ -32,4 +33,16 @@ if (isProd) {
 
 app.on('window-all-closed', () => {
   app.quit();
+});
+
+ipcMain.on('reminder-data', (event, arg: ReminderDataT) => {
+  const webContents = event.sender;
+  const mainWindow = BrowserWindow.fromWebContents(webContents);
+
+  const scheduledJob = schedule.scheduleJob(`* */${arg.interval} * *`, () => {
+    event.sender.send('change-data', true);
+
+    mainWindow.show();
+    mainWindow.focus();
+  });
 });

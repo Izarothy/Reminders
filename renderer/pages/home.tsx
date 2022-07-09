@@ -3,7 +3,6 @@ import Head from 'next/head';
 import ReminderForm from '../components/ReminderForm';
 
 function Home() {
-  const setReminder = () => {};
   return (
     <>
       <Head>
