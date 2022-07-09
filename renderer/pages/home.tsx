@@ -7,9 +7,9 @@ function Home() {
       <Head>
         <title>Home - Nextron (with-typescript-tailwindcss)</title>
       </Head>
-      <body className="grid place-items-center h-screen">
+      <div className="grid place-items-center h-screen">
         <h1>Test</h1>
-      </body>
+      </div>
     </>
   );
 }
