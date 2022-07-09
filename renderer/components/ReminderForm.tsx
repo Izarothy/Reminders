@@ -4,9 +4,11 @@ import { setReminderData } from '../redux/slices/reminderDataSlice';
 import { useForm } from 'react-hook-form';
 import { ReminderDataT } from 'renderer/lib/types';
 import electron from 'electron';
+import { useRouter } from 'next/router';
 const ipcRenderer = electron.ipcRenderer || false;
 
 const ReminderForm = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { register, reset, handleSubmit } = useForm<ReminderDataT>();
 
@@ -19,6 +21,7 @@ const ReminderForm = () => {
     ipcRenderer && ipcRenderer.send('reminder-data', data);
 
     reset();
+    router.push('/confirmation');
   };
 
   return (
