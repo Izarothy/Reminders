@@ -39,10 +39,21 @@ ipcMain.on('reminder-data', (event, arg: ReminderDataT) => {
   const webContents = event.sender;
   const mainWindow = BrowserWindow.fromWebContents(webContents);
 
-  const scheduledJob = schedule.scheduleJob(`* */${arg.interval} * *`, () => {
-    event.sender.send('change-data', true);
+  let timesLeft = arg.times;
+  const scheduledJob = schedule.scheduleJob(`0 */${arg.interval} * * *`, () => {
+    timesLeft -= 1;
+    const occurenceDate = new Date(scheduledJob.nextInvocation()._date.ts);
+    const hours = occurenceDate.getHours().toString();
+    const minutes = occurenceDate.getMinutes().toString();
+    event.sender.send('change-data', {
+      nextOccurence: `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`,
+      timesLeft,
+    });
 
+    mainWindow.webContents.closeDevTools();
     mainWindow.show();
     mainWindow.focus();
+
+    if (timesLeft === 0) scheduledJob.cancel();
   });
 });

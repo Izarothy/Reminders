@@ -16,10 +16,14 @@ export const reminderDataSlice = createSlice({
     setReminderData: (state, action: PayloadAction<ReminderDataT>) => {
       state.value = action.payload;
     },
+    decrementRemindersLeft: (state, action: PayloadAction<number>) => {
+      state.value.times = action.payload;
+    },
   },
 });
 
-export const { setReminderData } = reminderDataSlice.actions;
+export const { setReminderData, decrementRemindersLeft } =
+  reminderDataSlice.actions;
 
 export const ReminderData = (state: AppState) => state.reminder.value;
 
