@@ -14,7 +14,7 @@ const Reminder = () => {
     }
   }, []);
 
-  if (reminderData.times === 0 && ipcRenderer) {
+  if (reminderData?.times === 0 && ipcRenderer) {
     ipcRenderer.send('close-window', 5000); // 5000 is the timeout value in ms
   }
 
@@ -26,7 +26,7 @@ const Reminder = () => {
           <span className="text-sm">
             You will be reminded again at {nextOccurence}
           </span>
-          <span className="text-sm">Reminders left: {reminderData.times}</span>
+          <span className="text-sm">Reminders left: {reminderData?.times}</span>
         </div>
       ) : (
         <h1 className="text-3xl font-semibold text-center">
