@@ -1,16 +1,28 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import Home from '../renderer/pages/home';
 import { store } from '../renderer/redux/store';
 
-describe('App', () => {
+const setup = () => {
   const HomePage = render(
     <Provider store={store}>
       <Home />
     </Provider>
   );
-  it('should render', () => {
+
+  return HomePage;
+};
+
+describe('App', () => {
+  it('Should render', () => {
+    const HomePage = setup();
     expect(HomePage).toBeTruthy();
+  });
+
+  it('Shows the form initially', () => {
+    setup();
+    const reminderForm = screen.queryByRole('form');
+    expect(reminderForm).toBeTruthy();
   });
 });

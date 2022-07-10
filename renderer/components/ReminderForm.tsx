@@ -29,6 +29,7 @@ const ReminderForm = () => {
       <form
         onSubmit={handleSubmit(setReminder)}
         className="flex flex-col align-center gap-4 bg-secondary-dark p-12 rounded-md"
+        role="form"
       >
         <label>
           <h3>Reminder title</h3>
