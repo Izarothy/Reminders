@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, IpcMainEvent } from 'electron';
 import serve from 'electron-serve';
 import { ReminderDataT } from 'renderer/lib/types';
 import { createWindow } from './helpers';
@@ -50,10 +50,14 @@ ipcMain.on('reminder-data', (event, arg: ReminderDataT) => {
       timesLeft,
     });
 
-    mainWindow.webContents.closeDevTools();
     mainWindow.show();
-    mainWindow.focus();
 
     if (timesLeft === 0) scheduledJob.cancel();
   });
+});
+
+ipcMain.on('close-window', (event: IpcMainEvent, timeout: number) => {
+  setTimeout(() => {
+    app.exit();
+  }, timeout);
 });
