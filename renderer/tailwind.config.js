@@ -6,8 +6,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins']
-      }
+        poppins: ['Poppins'],
+      },
+      colors: {
+        'primary-dark': '#191919',
+        'secondary-dark': '#282828',
+      },
     },
   },
   plugins: [],

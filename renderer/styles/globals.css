@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-900 text-white font-poppins;
+    @apply bg-primary-dark text-white font-poppins;
   }
 }
 
@@ -14,6 +14,6 @@
   }
 
   .form-input {
-    @apply text-gray-800;
+    @apply text-gray-300 bg-primary-dark rounded-sm w-full px-2 py-[0.15rem] placeholder:text-gray-400;
   }
 }

@@ -28,7 +28,7 @@ const ReminderForm = () => {
     <div>
       <form
         onSubmit={handleSubmit(setReminder)}
-        className="flex flex-col align-center gap-4"
+        className="flex flex-col align-center gap-4 bg-secondary-dark p-12 rounded-md"
       >
         <label>
           <h3>Reminder title</h3>
@@ -37,6 +37,7 @@ const ReminderForm = () => {
             {...register('title')}
             required
             className="form-input"
+            placeholder='e.g. "Read a book"'
           />
         </label>
         <label>
@@ -46,6 +47,7 @@ const ReminderForm = () => {
             {...register('interval')}
             required
             className="form-input"
+            placeholder="e.g. 1"
           />
         </label>
         <label>
@@ -55,6 +57,7 @@ const ReminderForm = () => {
             {...register('times')}
             required
             className="form-input"
+            placeholder="e.g. 3"
           />
         </label>
         <input type="submit" value="Set the reminder" className="btn-blue" />
