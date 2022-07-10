@@ -16,7 +16,11 @@ const Reminder = () => {
     <div className="flex flex-col">
       <h1 className="text-3xl text-center ">{reminderData?.title}</h1>
       <span>You will be reminded again at {nextOccurence}</span>
-      <span>Reminders left: {reminderData ? reminderData.times : '0'}</span>
+      <span>
+        {reminderData?.times > 0
+          ? `Reminders left: ${reminderData.times}`
+          : 'No reminders left.'}
+      </span>
     </div>
   );
 };
