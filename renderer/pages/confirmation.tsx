@@ -19,7 +19,7 @@ const Confirmation = () => {
   }
 
   return (
-    <div className="grid place-items-center text-3xl">
+    <div className="grid place-items-center text-3xl text-center">
       The reminder was registered. You may minimize this window.
     </div>
   );
