@@ -17,3 +17,10 @@
     @apply text-gray-300 bg-primary-dark rounded-sm w-full px-2 py-[0.15rem] placeholder:text-gray-400;
   }
 }
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
