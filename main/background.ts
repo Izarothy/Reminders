@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain, IpcMainEvent } from 'electron';
 import serve from 'electron-serve';
 import { ReminderDataT } from 'renderer/lib/types';
 import { createWindow } from './helpers';
-import addTrayIcon from './helpers/add-tray-icon';
 import schedule from 'node-schedule';
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
@@ -21,7 +20,6 @@ if (isProd) {
     height: 600,
   });
 
-  addTrayIcon(mainWindow);
   if (isProd) {
     await mainWindow.loadURL('app://./home.html');
   } else {
