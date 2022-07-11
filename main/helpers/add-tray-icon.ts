@@ -1,9 +1,9 @@
 import { Menu, Tray } from 'electron';
-
+import getAssetPath from './get-asset-path';
 const addTrayIcon = (
   mainWindow: Electron.CrossProcessExports.BrowserWindow
 ) => {
-  let tray = new Tray('resources/icon.jpg');
+  let tray = new Tray(getAssetPath('icon.jpg'));
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Exit', type: 'normal', role: 'quit' },
   ]);
