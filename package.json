@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "my-nextron-app",
-  "description": "My application description",
+  "name": "reminders-app",
+  "description": "Simple reminders app",
   "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "author": "Izaroth <izarothmail@gmail.com>",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
@@ -24,6 +24,7 @@
     "redux": "^4.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.6",
     "@babel/preset-react": "^7.18.6",
     "@types/jest": "^28.1.4",
     "@types/node": "^16.11.7",
