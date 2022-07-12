@@ -1,3 +1,6 @@
 {
-  "extends": ["wesbos/typescript"]
+  "extends": ["wesbos/typescript"],
+  "rules": {
+    "import/no-unresolved": "off" // TS server handles this; also conflicting with baseUrl imports
+  }
 }
