@@ -40,7 +40,7 @@ ipcMain.on('reminder-data', (event, arg: ReminderDataT) => {
   let timesLeft = arg.times;
   const scheduledJob = schedule.scheduleJob(`0 */${arg.interval} * * *`, () => {
     timesLeft -= 1;
-    const occurenceDate = new Date(scheduledJob.nextInvocation()._date.ts);
+    const occurenceDate = scheduledJob.nextInvocation();
     const hours = occurenceDate.getHours().toString();
     const minutes = occurenceDate.getMinutes().toString();
     event.sender.send('change-data', {
