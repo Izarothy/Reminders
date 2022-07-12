@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../store';
 import { ReminderDataT } from 'renderer/lib/types';
+import type { AppState } from '../store';
 
 interface ReminderDataState {
   value: ReminderDataT | null;
@@ -11,7 +11,7 @@ const initialState: ReminderDataState = {
 
 export const reminderDataSlice = createSlice({
   name: 'reminder',
-  initialState: initialState,
+  initialState,
   reducers: {
     setReminderData: (state, action: PayloadAction<ReminderDataT>) => {
       state.value = action.payload;

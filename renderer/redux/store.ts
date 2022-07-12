@@ -1,12 +1,12 @@
-import nextReminderSlice from './slices/nextReminderSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import reminderDataSlice from './slices/reminderDataSlice';
+import sliceNext from './slices/nextReminderSlice';
+import sliceReminderData from './slices/reminderDataSlice';
 
 export function makeStore() {
   return configureStore({
     reducer: {
-      reminder: reminderDataSlice,
-      nextOccurence: nextReminderSlice,
+      reminder: sliceReminderData,
+      nextOccurence: sliceNext,
     },
   });
 }

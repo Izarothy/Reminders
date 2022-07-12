@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../store';
+import type { AppState } from '../store';
 
 interface NextReminderState {
   value: string | null;
@@ -10,7 +10,7 @@ const initialState: NextReminderState = {
 
 export const nextReminderSlice = createSlice({
   name: 'nextReminder',
-  initialState: initialState,
+  initialState,
   reducers: {
     setNextOccurence: (state, action: PayloadAction<string>) => {
       state.value = action.payload;
@@ -20,8 +20,7 @@ export const nextReminderSlice = createSlice({
 
 export const { setNextOccurence } = nextReminderSlice.actions;
 
-export const NextReminderOccurence = (state: AppState) => {
+export const NextReminderOccurence = (state: AppState) =>
   state.nextOccurence.value;
-};
 
 export default nextReminderSlice.reducer;
