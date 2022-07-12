@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { decrementRemindersLeft } from 'renderer/redux/slices/reminderDataSlice';
 import { setNextOccurence } from 'renderer/redux/slices/nextReminderSlice';
+import { ChangeDataT } from 'renderer/lib/types';
 
 const ipcRenderer = electron.ipcRenderer || false;
 const Confirmation = () => {
@@ -11,11 +12,14 @@ const Confirmation = () => {
   const dispatch = useDispatch();
 
   if (ipcRenderer) {
-    ipcRenderer.on('change-data', (event: IpcRendererEvent, arg) => {
-      dispatch(decrementRemindersLeft(arg.timesLeft));
-      dispatch(setNextOccurence(arg.nextOccurence));
-      router.push('/reminder');
-    });
+    ipcRenderer.on(
+      'change-data',
+      (event: IpcRendererEvent, arg: ChangeDataT) => {
+        dispatch(decrementRemindersLeft(arg.timesLeft));
+        dispatch(setNextOccurence(arg.nextOccurence));
+        router.push('/reminder');
+      }
+    );
   }
 
   return (

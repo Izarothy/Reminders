@@ -3,3 +3,8 @@ export type ReminderDataT = {
   interval: number;
   times: number;
 };
+
+export type ChangeDataT = {
+  timesLeft: number;
+  nextOccurence: string;
+};
