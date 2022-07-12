@@ -33,6 +33,7 @@
     "@babel/preset-react": "7.16.0",
     "@types/jest": "^28.1.4",
     "@types/node": "16.11.12",
+    "@types/node-schedule": "^2.1.0",
     "@types/react": "^18.0.8",
     "@typescript-eslint/eslint-plugin": "5.6.0",
     "@typescript-eslint/parser": "5.6.0",
