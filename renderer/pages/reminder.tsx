@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useAppSelector } from 'renderer/lib/useAppSelector';
 import electron from 'electron';
+
 const ipcRenderer = electron.ipcRenderer || false;
 
 const Reminder = () => {
@@ -12,6 +13,8 @@ const Reminder = () => {
     if (!reminderData) {
       router.push('/home');
     }
+    // Only using it for component mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (reminderData?.times === 0 && ipcRenderer) {
