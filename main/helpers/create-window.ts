@@ -5,6 +5,7 @@ import {
 } from 'electron';
 
 import Store from 'electron-store';
+import { WindowStateT } from 'renderer/lib/types';
 
 export default (
   windowName: string,
@@ -13,16 +14,28 @@ export default (
   const key = 'window-state';
   const name = `window-state-${windowName}`;
   const store = new Store({ name });
+
   const defaultSize = {
-    width: options.width,
-    height: options.height,
+    width: 1000,
+    height: 600,
   };
-  let state = {};
+
+  let state: WindowStateT = {
+    x: 0,
+    y: 0,
+    width: 1000,
+    height: 600,
+  };
 
   // eslint-disable-next-line no-undef, prefer-const
   let mainWindow: Electron.CrossProcessExports.BrowserWindow;
 
-  const restore = () => store.get(key, defaultSize);
+  const restore = (): WindowStateT => ({
+    width: defaultSize.width,
+    height: defaultSize.height,
+    x: 0,
+    y: 0,
+  });
 
   const getCurrentPosition = () => {
     const position = mainWindow.getPosition();
@@ -36,7 +49,10 @@ export default (
     };
   };
 
-  const windowWithinBounds = (windowState, bounds) =>
+  const windowWithinBounds = (
+    windowState: WindowStateT,
+    bounds: WindowStateT
+  ) =>
     windowState.x >= bounds.x &&
     windowState.y >= bounds.y &&
     windowState.x + windowState.width <= bounds.x + bounds.width &&
@@ -51,7 +67,9 @@ export default (
     };
   };
 
-  const ensureVisibleOnSomeDisplay = (windowState) => {
+  const ensureVisibleOnSomeDisplay = (
+    windowState: WindowStateT
+  ): WindowStateT => {
     const visible = screen
       .getAllDisplays()
       .some((display) => windowWithinBounds(windowState, display.bounds));
