@@ -1,6 +1,7 @@
 {
   "extends": ["wesbos/typescript"],
   "rules": {
-    "import/no-unresolved": "off" // TS server handles this; also conflicting with baseUrl imports
+    "import/no-unresolved": "off", // TS server handles this; also conflicting with baseUrl imports
+    "jsx-a11y/no-redundant-roles": "off" // There's no implicit role at least when querying by role with jest
   }
 }
