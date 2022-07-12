@@ -10,7 +10,7 @@
     "build": "nextron build",
     "postinstall": "electron-builder install-app-deps",
     "test": "jest --watch",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
