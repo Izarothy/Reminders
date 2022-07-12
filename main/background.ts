@@ -1,8 +1,8 @@
 import { app, BrowserWindow, ipcMain, IpcMainEvent } from 'electron';
 import serve from 'electron-serve';
 import { ReminderDataT } from 'renderer/lib/types';
-import { createWindow } from './helpers';
 import schedule from 'node-schedule';
+import { createWindow } from './helpers';
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
 
