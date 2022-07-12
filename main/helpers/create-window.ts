@@ -3,6 +3,7 @@ import {
   BrowserWindow,
   BrowserWindowConstructorOptions,
 } from 'electron';
+
 import Store from 'electron-store';
 
 export default (
@@ -17,13 +18,16 @@ export default (
     height: options.height,
   };
   let state = {};
-  let win;
+
+  // eslint-disable-next-line no-undef, prefer-const
+  let mainWindow: Electron.CrossProcessExports.BrowserWindow;
 
   const restore = () => store.get(key, defaultSize);
 
   const getCurrentPosition = () => {
-    const position = win.getPosition();
-    const size = win.getSize();
+    const position = mainWindow.getPosition();
+    const size = mainWindow.getSize();
+
     return {
       x: position[0],
       y: position[1],
@@ -32,27 +36,25 @@ export default (
     };
   };
 
-  const windowWithinBounds = (windowState, bounds) => {
-    return (
-      windowState.x >= bounds.x &&
-      windowState.y >= bounds.y &&
-      windowState.x + windowState.width <= bounds.x + bounds.width &&
-      windowState.y + windowState.height <= bounds.y + bounds.height
-    );
-  };
+  const windowWithinBounds = (windowState, bounds) =>
+    windowState.x >= bounds.x &&
+    windowState.y >= bounds.y &&
+    windowState.x + windowState.width <= bounds.x + bounds.width &&
+    windowState.y + windowState.height <= bounds.y + bounds.height;
 
   const resetToDefaults = () => {
-    const bounds = screen.getPrimaryDisplay().bounds;
-    return Object.assign({}, defaultSize, {
+    const { bounds } = screen.getPrimaryDisplay();
+    return {
+      ...defaultSize,
       x: (bounds.width - defaultSize.width) / 2,
       y: (bounds.height - defaultSize.height) / 2,
-    });
+    };
   };
 
   const ensureVisibleOnSomeDisplay = (windowState) => {
-    const visible = screen.getAllDisplays().some((display) => {
-      return windowWithinBounds(windowState, display.bounds);
-    });
+    const visible = screen
+      .getAllDisplays()
+      .some((display) => windowWithinBounds(windowState, display.bounds));
     if (!visible) {
       // Window is partially or fully not visible now.
       // Reset it to safe defaults.
@@ -62,7 +64,7 @@ export default (
   };
 
   const saveState = () => {
-    if (!win.isMinimized() && !win.isMaximized()) {
+    if (!mainWindow.isMinimized() && !mainWindow.isMaximized()) {
       Object.assign(state, getCurrentPosition());
     }
     store.set(key, state);
@@ -79,12 +81,13 @@ export default (
       ...options.webPreferences,
     },
   };
-  win = new BrowserWindow(browserOptions);
+  mainWindow = new BrowserWindow(browserOptions);
 
-  win.on('minimize', () => {
-    win.hide();
+  mainWindow.on('minimize', () => {
+    mainWindow.hide();
   });
-  win.on('close', saveState);
 
-  return win;
+  mainWindow.on('close', saveState);
+
+  return mainWindow;
 };
