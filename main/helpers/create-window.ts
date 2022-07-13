@@ -27,7 +27,7 @@ export default (
     height: 600,
   };
 
-  // eslint-disable-next-line no-undef, prefer-const
+  // eslint-disable-next-line prefer-const
   let mainWindow: Electron.CrossProcessExports.BrowserWindow;
 
   const restore = (): WindowStateT => ({
