@@ -59,3 +59,9 @@ ipcMain.on('close-window', (event: IpcMainEvent, timeout: number) => {
     app.exit();
   }, timeout);
 });
+
+ipcMain.on('minimize', (event: IpcMainEvent) => {
+  const mainWindow: BrowserWindow = BrowserWindow.fromWebContents(event.sender);
+
+  mainWindow.hide();
+});
